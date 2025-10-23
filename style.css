@@ -40,7 +40,7 @@ body {
     border: 1px solid var(--secondary-gold);
 }
 
-.ad-container ins {
+.ad-container iframe {
     border-radius: 5px;
     overflow: hidden;
     width: 100%;
