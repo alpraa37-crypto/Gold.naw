@@ -57,7 +57,6 @@ function initApp() {
     updateDate();
     loadGoldPrices();
     setupEventListeners();
-    initializeAds();
     setupAutoRefresh();
 }
 
@@ -155,7 +154,6 @@ function refreshPrices() {
         
         loadGoldPrices();
         hideLoading();
-        initializeAds();
         
         showNotification('تم تحديث الأسعار بنجاح! 🔄');
     }, 1000);
@@ -262,15 +260,6 @@ function showNotification(message) {
             document.body.removeChild(notification);
         }, 400);
     }, 3000);
-}
-
-// تهيئة الإعلانات
-function initializeAds() {
-    try {
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-        console.log('Error loading ads:', e);
-    }
 }
 
 // بدء التطبيق
