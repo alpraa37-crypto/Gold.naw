@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق أسعار الذهب - شركة أنس وبراء العربية</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- إعلانات AdMob -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6482443556196062"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- إعلان أعلى الصفحة -->
+    <div class="ad-container top-ad">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-6482443556196062"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <i class="fas fa-coins gold-icon"></i>
+                <h1>أسعار الذهب اليوم في مصر</h1>
+                <p id="current-date">--/--/----</p>
+                <div class="live-indicator">
+                    <i class="fas fa-circle"></i>
+                    <span>أسعار حقيقية محدثة</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- إعلان في المنتصف -->
+        <div class="ad-container middle-ad">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-6482443556196062"
+                 data-ad-slot="0987654321"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <main>
+            <div class="controls">
+                <div class="auto-refresh">
+                    <label for="auto-refresh">التحديث التلقائي:</label>
+                    <select id="auto-refresh">
+                        <option value="0">إيقاف</option>
+                        <option value="30" selected>كل 30 ثانية</option>
+                        <option value="60">كل دقيقة</option>
+                        <option value="300">كل 5 دقائق</option>
+                    </select>
+                </div>
+                <button id="refresh-btn" class="refresh-btn">
+                    <i class="fas fa-sync-alt"></i>
+                    تحديث الأسعار الآن
+                </button>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-label">سعر الأونصة العالمي:</span>
+                    <span class="stat-value" id="global-ounce">$4,257.06</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">التغير اليوم:</span>
+                    <span class="stat-value" id="daily-change">↑ 1.10%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">آخر تحديث:</span>
+                    <span class="stat-value" id="last-update">--:--:--</span>
+                </div>
+            </div>
+
+            <div class="gold-prices">
+                <!-- 24 قيراط -->
+                <div class="price-card featured" data-type="k24">
+                    <div class="card-badge">الأعلى نقاء</div>
+                    <div class="card-header">
+                        <i class="fas fa-gem"></i>
+                        <h3>ذهب 24 قيراط</h3>
+                    </div>
+                    <div class="price" id="k24-price">ج.م 6,523.57</div>
+                    <div class="change negative" id="k24-change">↓ 0.25%</div>
+                    <div class="card-footer">
+                        <small>أنقى أنواع الذهب</small>
+                    </div>
+                </div>
+
+                <!-- 22 قيراط -->
+                <div class="price-card" data-type="k22">
+                    <div class="card-header">
+                        <i class="fas fa-crown"></i>
+                        <h3>ذهب 22 قيراط</h3>
+                    </div>
+                    <div class="price" id="k22-price">ج.م 5,979.94</div>
+                    <div class="change positive" id="k22-change">↑ 1.20%</div>
+                    <div class="card-footer">
+                        <small>شائع في المجوهرات</small>
+                    </div>
+                </div>
+
+                <!-- 21 قيراط -->
+                <div class="price-card" data-type="k21">
+                    <div class="card-header">
+                        <i class="fas fa-ring"></i>
+                        <h3>ذهب 21 قيراط</h3>
+                    </div>
+                    <div class="price" id="k21-price">ج.م 5,708.13</div>
+                    <div class="change positive" id="k21-change">↑ 1.25%</div>
+                    <div class="card-footer">
+                        <small>الأكثر استخداماً</small>
+                    </div>
+                </div>
+
+                <!-- 18 قيراط -->
+                <div class="price-card" data-type="k18">
+                    <div class="card-header">
+                        <i class="fas fa-star"></i>
+                        <h3>ذهب 18 قيراط</h3>
+                    </div>
+                    <div class="price" id="k18-price">ج.م 4,892.68</div>
+                    <div class="change positive" id="k18-change">↑ 2.65%</div>
+                    <div class="card-footer">
+                        <small>للذهب الأبيض</small>
+                    </div>
+                </div>
+
+                <!-- الأونصة -->
+                <div class="price-card" data-type="ounce">
+                    <div class="card-header">
+                        <i class="fas fa-weight-hanging"></i>
+                        <h3>أونصة الذهب</h3>
+                    </div>
+                    <div class="price" id="ounce-price">ج.م 202,883.12</div>
+                    <div class="change positive" id="ounce-change">↑ 1.30%</div>
+                    <div class="card-footer">
+                        <small>السعر العالمي</small>
+                    </div>
+                </div>
+
+                <!-- الجرام -->
+                <div class="price-card" data-type="gram">
+                    <div class="card-header">
+                        <i class="fas fa-weight"></i>
+                        <h3>جرام الذهب</h3>
+                    </div>
+                    <div class="price" id="gram-price">ج.م 6,523.57</div>
+                    <div class="change negative" id="gram-change">↓ 0.93%</div>
+                    <div class="card-footer">
+                        <small>سعر الجرام 24</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- إعلان آخر -->
+            <div class="ad-container bottom-ad">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-6482443556196062"
+                     data-ad-slot="1122334455"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <div class="tools-section">
+                <div class="calculator">
+                    <h2><i class="fas fa-calculator"></i> حاسبة الذهب</h2>
+                    <div class="calc-form">
+                        <div class="input-group">
+                            <label for="weight">الوزن (جرام):</label>
+                            <input type="number" id="weight" placeholder="أدخل الوزن" min="0" step="0.1" value="1">
+                        </div>
+                        <div class="input-group">
+                            <label for="karat">العيار:</label>
+                            <select id="karat">
+                                <option value="24">24 قيراط</option>
+                                <option value="22">22 قيراط</option>
+                                <option value="21" selected>21 قيراط</option>
+                                <option value="18">18 قيراط</option>
+                                <option value="14">14 قيراط</option>
+                            </select>
+                        </div>
+                        <button id="calculate-btn">احسب السعر</button>
+                        <div class="result" id="calc-result">ج.م 5,708.13</div>
+                    </div>
+                </div>
+
+                <div class="market-info">
+                    <h2><i class="fas fa-chart-line"></i> معلومات السوق</h2>
+                    <div class="info-content">
+                        <div class="info-item">
+                            <span class="info-label">سعر الأونصة العالمية:</span>
+                            <span class="info-value" id="global-ounce-price">$4,257.06</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">سعر الجرام الدولي:</span>
+                            <span class="info-value" id="global-gram-price">$136.88</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">حالة التحديث:</span>
+                            <span class="info-value" id="update-status">جاري التحميل...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم من نحن -->
+            <div class="about-section">
+                <h2><i class="fas fa-info-circle"></i> من نحن</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>شركة أنس وبراء العربية</h3>
+                        <p>نحن شركة متخصصة في صناعة مواقع ويب بسيطة ولكنها مهمة للحياة اليومية. نؤمن بأن التكنولوجيا يجب أن تكون في متناول الجميع وتخدم احتياجات الناس اليومية.</p>
+                        
+                        <div class="features">
+                            <div class="feature">
+                                <i class="fas fa-rocket"></i>
+                                <h4>مواقع سريعة</h4>
+                                <p>نصمم مواقع سريعة التحميل وسهلة الاستخدام</p>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-mobile-alt"></i>
+                                <h4>متجاوبة</h4>
+                                <p>جميع مواقعنا تعمل بشكل ممتاز على جميع الأجهزة</p>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-shield-alt"></i>
+                                <h4>آمنة</h4>
+                                <p>نحرص على أمان وسلامة مواقعنا وبيانات المستخدمين</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info">
+                            <h4>مركز المساعدة وخدمة العملاء</h4>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>01055891020 (واتساب)</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>info@ans-wa-bara.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-clock"></i>
+                                <span>خدمة العملاء متاحة 24/7</span>
+                            </div>
+                        </div>
+
+                        <div class="signature">
+                            <p><strong>التوقيع:</strong> شركة أنس وبراء العربية</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <p>آخر تحديث: <span id="footer-update">--:--:--</span></p>
+                <p>جميع الحقوق محفوظة &copy; 2024 شركة أنس وبراء العربية</p>
+                <p class="disclaimer">الأسعار للاسترشاد فقط - قد تختلف الأسعار الفعلية</p>
+            </div>
+        </footer>
+    </div>
+
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>جاري تحديث الأسعار...</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
