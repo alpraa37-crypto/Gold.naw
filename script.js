@@ -25,12 +25,12 @@ const DATA_SOURCES = [
 // أسعار ذهب احتياطية واقعية (تتغير بناءً على السوق)
 let goldPrices = {
     EGP: {
-        k24: 3402.25,
-        k22: 3168.14,
-        k21: 3055.65,
-        k18: 2601.45,
-        gram: 3438.70,
-        ounce: 67127.60
+        k24: 6502.25,
+        k22: 4168.14,
+        k21: 4055.65,
+        k18: 3001.45,
+        gram: 4055.70,
+        ounce: 97127.60
     },
     USD: {
         ounce: 2150.75,
@@ -356,3 +356,4 @@ function showNotification(message) {
 
 // بدء التطبيق
 document.addEventListener('DOMContentLoaded', initApp);
+
