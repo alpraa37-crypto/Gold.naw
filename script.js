@@ -116,7 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // إعداد الأحداث
     document.getElementById('refresh-btn').addEventListener('click', refreshPrices);
-    document.getElementById('calculate-btn').addEventListener('click', calculatePrice);
     
     // إعداد التحديث التلقائي
     setupAutoRefresh();
