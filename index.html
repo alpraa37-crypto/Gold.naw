@@ -3,40 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق أسعار الذهب - شركة أنس وبراء العربية</title>
+    <title>أسعار الذهب اليوم في مصر - تحديث مباشر</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
-    <!-- إعلان Adstera Banner -->
+    <!-- إعلان Popper -->
     <script type="text/javascript">
-        atOptions = {
-            'key' : '4cf1fc621627d1097f69a9f5f4d9d1ea',
-            'format' : 'iframe',
-            'height' : 600,
-            'width' : 160,
-            'params' : {}
-        };
+        self.options = {
+            "domain": "3nbf4.com",
+            "zoneId": 10089667
+        }
+        self.lary = ""
     </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/4cf1fc621627d1097f69a9f5f4d9d1ea/invoke.js"></script>
-    
-    <!-- إعلان Popunder -->
-    <script type='text/javascript' src='//pl27911365.effectivegatecpm.com/f0/81/ee/f081ee9b4f34a12ceee7b9aa16bc00ac.js'></script>
+    <script type="text/javascript" src="https://3nbf4.com/act/files/service-worker.min.js?r=sw"></script>
 </head>
 <body>
-    <!-- إعلان Adstera أعلى الصفحة -->
-    <div class="ad-container top-ad">
-        <script type="text/javascript">
-            atOptions = {
-                'key' : '4cf1fc621627d1097f69a9f5f4d9d1ea',
-                'format' : 'iframe',
-                'height' : 250,
-                'width' : 300,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/4cf1fc621627d1097f69a9f5f4d9d1ea/invoke.js"></script>
-    </div>
-
     <div class="container">
         <header>
             <div class="header-content">
@@ -45,24 +26,10 @@
                 <p id="current-date">--/--/----</p>
                 <div class="live-indicator">
                     <i class="fas fa-circle"></i>
-                    <span>أسعار حقيقية من GoldPriceData.com</span>
+                    <span>تحديث مباشر من مصادر موثوقة</span>
                 </div>
             </div>
         </header>
-
-        <!-- إعلان Adstera في المنتصف -->
-        <div class="ad-container middle-ad">
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '4cf1fc621627d1097f69a9f5f4d9d1ea',
-                    'format' : 'iframe',
-                    'height' : 90,
-                    'width' : 728,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/4cf1fc621627d1097f69a9f5f4d9d1ea/invoke.js"></script>
-        </div>
 
         <main>
             <div class="controls">
@@ -72,7 +39,6 @@
                         <option value="0">إيقاف</option>
                         <option value="30" selected>كل 30 ثانية</option>
                         <option value="60">كل دقيقة</option>
-                        <option value="300">كل 5 دقائق</option>
                     </select>
                 </div>
                 <button id="refresh-btn" class="refresh-btn">
@@ -84,7 +50,7 @@
             <div class="stats-bar">
                 <div class="stat-item">
                     <span class="stat-label">مصدر البيانات:</span>
-                    <span class="stat-value">GoldPriceData.com</span>
+                    <span class="stat-value" id="data-source">جاري التحميل...</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">حالة التحديث:</span>
@@ -177,20 +143,6 @@
                 </div>
             </div>
 
-            <!-- إعلان Adstera آخر -->
-            <div class="ad-container bottom-ad">
-                <script type="text/javascript">
-                    atOptions = {
-                        'key' : '4cf1fc621627d1097f69a9f5f4d9d1ea',
-                        'format' : 'iframe',
-                        'height' : 250,
-                        'width' : 300,
-                        'params' : {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/4cf1fc621627d1097f69a9f5f4d9d1ea/invoke.js"></script>
-            </div>
-
             <div class="tools-section">
                 <div class="calculator">
                     <h2><i class="fas fa-calculator"></i> حاسبة الذهب</h2>
@@ -213,81 +165,14 @@
                         <div class="result" id="calc-result">--</div>
                     </div>
                 </div>
-
-                <div class="market-info">
-                    <h2><i class="fas fa-chart-line"></i> معلومات السوق</h2>
-                    <div class="info-content">
-                        <div class="info-item">
-                            <span class="info-label">سعر الأونصة العالمية:</span>
-                            <span class="info-value" id="global-ounce-price">--</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">سعر الجرام الدولي:</span>
-                            <span class="info-value" id="global-gram-price">--</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">التغير اليوم:</span>
-                            <span class="info-value" id="daily-change">--</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- قسم من نحن -->
-            <div class="about-section">
-                <h2><i class="fas fa-info-circle"></i> من نحن</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <h3>شركة أنس وبراء العربية</h3>
-                        <p>نحن شركة متخصصة في صناعة مواقع ويب بسيطة ولكنها مهمة للحياة اليومية. نؤمن بأن التكنولوجيا يجب أن تكون في متناول الجميع وتخدم احتياجات الناس اليومية.</p>
-                        
-                        <div class="features">
-                            <div class="feature">
-                                <i class="fas fa-rocket"></i>
-                                <h4>مواقع سريعة</h4>
-                                <p>نصمم مواقع سريعة التحميل وسهلة الاستخدام</p>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-mobile-alt"></i>
-                                <h4>متجاوبة</h4>
-                                <p>جميع مواقعنا تعمل بشكل ممتاز على جميع الأجهزة</p>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-shield-alt"></i>
-                                <h4>آمنة</h4>
-                                <p>نحرص على أمان وسلامة مواقعنا وبيانات المستخدمين</p>
-                            </div>
-                        </div>
-
-                        <div class="contact-info">
-                            <h4>مركز المساعدة وخدمة العملاء</h4>
-                            <div class="contact-item">
-                                <i class="fas fa-phone"></i>
-                                <span>01055891020 (واتساب)</span>
-                            </div>
-                            <div class="contact-item">
-                                <i class="fas fa-envelope"></i>
-                                <span>info@ans-wa-bara.com</span>
-                            </div>
-                            <div class="contact-item">
-                                <i class="fas fa-clock"></i>
-                                <span>خدمة العملاء متاحة 24/7</span>
-                            </div>
-                        </div>
-
-                        <div class="signature">
-                            <p><strong>التوقيع:</strong> شركة أنس وبراء العربية</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </main>
 
         <footer>
             <div class="footer-content">
                 <p>آخر تحديث: <span id="footer-update">--:--:--</span></p>
-                <p>جميع الحقوق محفوظة &copy; 2024 شركة أنس وبراء العربية</p>
-                <p class="disclaimer">الأسعار من GoldPriceData.com - للاسترشاد فقط</p>
+                <p>جميع الحقوق محفوظة &copy; 2024</p>
+                <p class="disclaimer">الأسعار للاسترشاد فقط - قد تختلف الأسعار الفعلية</p>
             </div>
         </footer>
     </div>
