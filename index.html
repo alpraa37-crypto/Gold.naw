@@ -1,94 +1,195 @@
-// تأكد من أن جميع العناصر موجودة
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('بدء تحميل التطبيق...');
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أسعار الذهب اليوم في مصر - تحديث مباشر</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
-    try {
-        // كود التطبيق هنا
-        initApp();
-    } catch (error) {
-        console.error('خطأ في التطبيق:', error);
-        alert('حدث خطأ في التطبيق: ' + error.message);
-    }
-});
+    <!-- إعلانات Monetag -->
+    <meta name="monetag" content="5718c14e9afb4ca86b06a29454b57f6e">
+</head>
+<body>
+    <!-- إعلان أعلى الصفحة -->
+    <div class="ad-container top-ad">
+        <script type="text/javascript" src="https://tags.monetag.com/tags/5718c14e9afb4ca86b06a29454b57f6e.js"></script>
+    </div>
 
-// الأسعار الحقيقية
-let goldPrices = {
-    EGP: {
-        k24: 6523.57,
-        k22: 5979.94,
-        k21: 5708.13,
-        k18: 4892.68,
-        gram: 6523.57,
-        ounce: 202883.12
-    }
-};
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <i class="fas fa-coins gold-icon"></i>
+                <h1>أسعار الذهب اليوم في مصر</h1>
+                <p id="current-date">--/--/----</p>
+                <div class="live-indicator">
+                    <i class="fas fa-circle"></i>
+                    <span>أسعار حقيقية من السوق المصري</span>
+                </div>
+            </div>
+        </header>
 
-function initApp() {
-    console.log('تهيئة التطبيق...');
+        <!-- إعلان في المنتصف -->
+        <div class="ad-container middle-ad">
+            <div id="monetag-2"></div>
+        </div>
+
+        <main>
+            <div class="controls">
+                <div class="auto-refresh">
+                    <label for="auto-refresh">التحديث:</label>
+                    <select id="auto-refresh">
+                        <option value="0">إيقاف</option>
+                        <option value="30" selected>كل 30 ثانية</option>
+                    </select>
+                </div>
+                <button id="refresh-btn" class="refresh-btn">
+                    <i class="fas fa-sync-alt"></i>
+                    تحديث الأسعار
+                </button>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-label">الأونصة العالمية:</span>
+                    <span class="stat-value">$2,150.75</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">التغير اليوم:</span>
+                    <span class="stat-value" style="color: #4CAF50">↑ +1.10%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">آخر تحديث:</span>
+                    <span class="stat-value" id="last-update">--:--:--</span>
+                </div>
+            </div>
+
+            <div class="gold-prices">
+                <!-- 24 قيراط -->
+                <div class="price-card featured">
+                    <div class="card-badge">الأعلى نقاء</div>
+                    <div class="card-header">
+                        <i class="fas fa-gem"></i>
+                        <h3>ذهب 24 قيراط</h3>
+                    </div>
+                    <div class="price">ج.م 6,523</div>
+                    <div class="change positive">↑ +0.45%</div>
+                    <div class="card-footer">
+                        <small>أنقى أنواع الذهب</small>
+                    </div>
+                </div>
+
+                <!-- 22 قيراط -->
+                <div class="price-card">
+                    <div class="card-header">
+                        <i class="fas fa-crown"></i>
+                        <h3>ذهب 22 قيراط</h3>
+                    </div>
+                    <div class="price">ج.م 5,979</div>
+                    <div class="change positive">↑ +0.41%</div>
+                    <div class="card-footer">
+                        <small>شائع في المجوهرات</small>
+                    </div>
+                </div>
+
+                <!-- 21 قيراط -->
+                <div class="price-card">
+                    <div class="card-header">
+                        <i class="fas fa-ring"></i>
+                        <h3>ذهب 21 قيراط</h3>
+                    </div>
+                    <div class="price">ج.م 5,708</div>
+                    <div class="change positive">↑ +0.40%</div>
+                    <div class="card-footer">
+                        <small>الأكثر استخداماً</small>
+                    </div>
+                </div>
+
+                <!-- 18 قيراط -->
+                <div class="price-card">
+                    <div class="card-header">
+                        <i class="fas fa-star"></i>
+                        <h3>ذهب 18 قيراط</h3>
+                    </div>
+                    <div class="price">ج.م 4,892</div>
+                    <div class="change positive">↑ +0.38%</div>
+                    <div class="card-footer">
+                        <small>للذهب الأبيض</small>
+                    </div>
+                </div>
+
+                <!-- الأونصة -->
+                <div class="price-card">
+                    <div class="card-header">
+                        <i class="fas fa-weight-hanging"></i>
+                        <h3>أونصة الذهب</h3>
+                    </div>
+                    <div class="price">ج.م 202,883</div>
+                    <div class="change positive">↑ +1.30%</div>
+                    <div class="card-footer">
+                        <small>السعر العالمي</small>
+                    </div>
+                </div>
+
+                <!-- الجرام -->
+                <div class="price-card">
+                    <div class="card-header">
+                        <i class="fas fa-weight"></i>
+                        <h3>جرام الذهب</h3>
+                    </div>
+                    <div class="price">ج.م 6,523</div>
+                    <div class="change positive">↑ +0.42%</div>
+                    <div class="card-footer">
+                        <small>سعر الجرام 24</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- إعلان آخر -->
+            <div class="ad-container bottom-ad">
+                <div id="monetag-3"></div>
+            </div>
+
+            <div class="tools-section">
+                <div class="calculator">
+                    <h2><i class="fas fa-calculator"></i> حاسبة الذهب</h2>
+                    <div class="calc-form">
+                        <div class="input-group">
+                            <label for="weight">الوزن (جرام):</label>
+                            <input type="number" id="weight" value="1" min="0" step="0.1">
+                        </div>
+                        <div class="input-group">
+                            <label for="karat">العيار:</label>
+                            <select id="karat">
+                                <option value="24">24 قيراط</option>
+                                <option value="22">22 قيراط</option>
+                                <option value="21" selected>21 قيراط</option>
+                                <option value="18">18 قيراط</option>
+                            </select>
+                        </div>
+                        <button onclick="calculatePrice()">احسب السعر</button>
+                        <div class="result" id="calc-result">ج.م 5,708</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <p>آخر تحديث: <span id="footer-update">--:--:--</span></p>
+                <p>جميع الحقوق محفوظة &copy; 2024</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
     
-    // تحديث التاريخ
-    const now = new Date();
-    document.getElementById('current-date').textContent = now.toLocaleDateString('ar-EG');
-    
-    // تحميل الأسعار
-    loadGoldPrices();
-    
-    // إعداد الأحداث
-    document.getElementById('refresh-btn').addEventListener('click', refreshPrices);
-    document.getElementById('calculate-btn').addEventListener('click', calculateGoldPrice);
-    
-    console.log('التطبيق جاهز!');
-}
-
-function loadGoldPrices() {
-    try {
-        document.getElementById('k24-price').textContent = `ج.م ${goldPrices.EGP.k24.toLocaleString()}`;
-        document.getElementById('k22-price').textContent = `ج.م ${goldPrices.EGP.k22.toLocaleString()}`;
-        document.getElementById('k21-price').textContent = `ج.م ${goldPrices.EGP.k21.toLocaleString()}`;
-        document.getElementById('k18-price').textContent = `ج.م ${goldPrices.EGP.k18.toLocaleString()}`;
-        document.getElementById('ounce-price').textContent = `ج.م ${goldPrices.EGP.ounce.toLocaleString()}`;
-        document.getElementById('gram-price').textContent = `ج.م ${goldPrices.EGP.gram.toLocaleString()}`;
-        
-        calculateGoldPrice();
-        updateLastUpdateTime();
-        
-    } catch (error) {
-        console.error('خطأ في تحميل الأسعار:', error);
-    }
-}
-
-function calculateGoldPrice() {
-    try {
-        const weight = parseFloat(document.getElementById('weight').value) || 1;
-        const karat = parseInt(document.getElementById('karat').value);
-        const gram24Price = goldPrices.EGP.k24;
-        
-        let pricePerGram;
-        switch (karat) {
-            case 24: pricePerGram = gram24Price; break;
-            case 22: pricePerGram = gram24Price * 0.9167; break;
-            case 21: pricePerGram = gram24Price * 0.875; break;
-            case 18: pricePerGram = gram24Price * 0.75; break;
-            case 14: pricePerGram = gram24Price * 0.583; break;
-            default: pricePerGram = gram24Price;
-        }
-        
-        const totalPrice = weight * pricePerGram;
-        document.getElementById('calc-result').textContent = `ج.م ${totalPrice.toLocaleString()}`;
-        
-    } catch (error) {
-        console.error('خطأ في الحاسبة:', error);
-    }
-}
-
-function refreshPrices() {
-    console.log('تحديث الأسعار...');
-    // كود التحديث هنا
-}
-
-function updateLastUpdateTime() {
-    const now = new Date();
-    const timeString = now.toLocaleTimeString('ar-EG');
-    document.getElementById('last-update').textContent = timeString;
-    document.getElementById('footer-update').textContent = timeString;
-}
+    <!-- تحميل إعلانات Monetag -->
+    <script>
+        // تهيئة الإعلانات بعد تحميل الصفحة
+        window.addEventListener('load', function() {
+            // كود Monetag الإضافي إذا لزم
+        });
+    </script>
+</body>
+</html>
