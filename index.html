@@ -7,13 +7,32 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
-    <!-- إعلانات Monetag -->
+    <!-- كود Monetag الصحيح -->
     <meta name="monetag" content="5718c14e9afb4ca86b06a29454b57f6e">
+    <script>
+        (function(m, o, n, e, t, a, g) {
+            m['MonetagObject'] = t;
+            m[t] = m[t] || function() {
+                (m[t].a = m[t].a || []).push(arguments)
+            };
+            m[t].l = 1 * new Date();
+            a = o.createElement(n);
+            g = o.getElementsByTagName(n)[0];
+            a.async = 1;
+            a.src = e;
+            g.parentNode.insertBefore(a, g)
+        })(window, document, 'script', 'https://tags.monetag.com/tags/5718c14e9afb4ca86b06a29454b57f6e.js', 'monetag');
+    </script>
 </head>
 <body>
     <!-- إعلان أعلى الصفحة -->
     <div class="ad-container top-ad">
-        <script type="text/javascript" src="https://tags.monetag.com/tags/5718c14e9afb4ca86b06a29454b57f6e.js"></script>
+        <script>
+            monetag('display', '3085270', {
+                sizes: [[300, 250]],
+                position: 'top'
+            });
+        </script>
     </div>
 
     <div class="container">
@@ -31,7 +50,12 @@
 
         <!-- إعلان في المنتصف -->
         <div class="ad-container middle-ad">
-            <div id="monetag-2"></div>
+            <script>
+                monetag('display', '3085270', {
+                    sizes: [[728, 90]],
+                    position: 'middle'
+                });
+            </script>
         </div>
 
         <main>
@@ -147,7 +171,12 @@
 
             <!-- إعلان آخر -->
             <div class="ad-container bottom-ad">
-                <div id="monetag-3"></div>
+                <script>
+                    monetag('display', '3085270', {
+                        sizes: [[300, 250]],
+                        position: 'bottom'
+                    });
+                </script>
             </div>
 
             <div class="tools-section">
@@ -183,13 +212,5 @@
     </div>
 
     <script src="script.js"></script>
-    
-    <!-- تحميل إعلانات Monetag -->
-    <script>
-        // تهيئة الإعلانات بعد تحميل الصفحة
-        window.addEventListener('load', function() {
-            // كود Monetag الإضافي إذا لزم
-        });
-    </script>
 </body>
 </html>
