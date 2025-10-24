@@ -7,17 +7,29 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
-    <!-- إعلان Popper -->
-    <script type="text/javascript">
-        self.options = {
-            "domain": "3nbf4.com",
-            "zoneId": 10089667
-        }
-        self.lary = ""
+    <!-- إعلانات Monetag -->
+    <meta name="monetag" content="5718c14e9afb4ca86b06a29454b57f6e">
+    <script>
+        (function (m, o, n, e, t, a, g) {
+            m['MonetagObject'] = t;
+            m[t] = m[t] || function () {
+                (m[t].a = m[t].a || []).push(arguments)
+            };
+            m[t].l = 1 * new Date();
+            a = o.createElement(n);
+            g = o.getElementsByTagName(n)[0];
+            a.async = 1;
+            a.src = e;
+            g.parentNode.insertBefore(a, g)
+        })(window, document, 'script', 'https://tags.monetag.com/tags/5718c14e9afb4ca86b06a29454b57f6e.js', 'tag');
     </script>
-    <script type="text/javascript" src="https://3nbf4.com/act/files/service-worker.min.js?r=sw"></script>
 </head>
 <body>
+    <!-- إعلان Monetag أعلى الصفحة -->
+    <div class="ad-container top-ad">
+        <div id="monetag-1"></div>
+    </div>
+
     <div class="container">
         <header>
             <div class="header-content">
@@ -26,10 +38,15 @@
                 <p id="current-date">--/--/----</p>
                 <div class="live-indicator">
                     <i class="fas fa-circle"></i>
-                    <span>تحديث مباشر من مصادر موثوقة</span>
+                    <span>أسعار حقيقية من السوق المصري</span>
                 </div>
             </div>
         </header>
+
+        <!-- إعلان Monetag في المنتصف -->
+        <div class="ad-container middle-ad">
+            <div id="monetag-2"></div>
+        </div>
 
         <main>
             <div class="controls">
@@ -49,12 +66,12 @@
 
             <div class="stats-bar">
                 <div class="stat-item">
-                    <span class="stat-label">مصدر البيانات:</span>
-                    <span class="stat-value" id="data-source">جاري التحميل...</span>
+                    <span class="stat-label">سعر الأونصة العالمي:</span>
+                    <span class="stat-value" id="global-ounce">$2,150.75</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-label">حالة التحديث:</span>
-                    <span class="stat-value" id="update-status">جاري جلب الأسعار...</span>
+                    <span class="stat-label">التغير اليوم:</span>
+                    <span class="stat-value" id="daily-change">↑ +1.10%</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">آخر تحديث:</span>
@@ -70,8 +87,8 @@
                         <i class="fas fa-gem"></i>
                         <h3>ذهب 24 قيراط</h3>
                     </div>
-                    <div class="price" id="k24-price">--</div>
-                    <div class="change" id="k24-change">--</div>
+                    <div class="price" id="k24-price">ج.م 6,523.57</div>
+                    <div class="change positive" id="k24-change">↑ +0.45%</div>
                     <div class="card-footer">
                         <small>أنقى أنواع الذهب</small>
                     </div>
@@ -83,8 +100,8 @@
                         <i class="fas fa-crown"></i>
                         <h3>ذهب 22 قيراط</h3>
                     </div>
-                    <div class="price" id="k22-price">--</div>
-                    <div class="change" id="k22-change">--</div>
+                    <div class="price" id="k22-price">ج.م 5,979.94</div>
+                    <div class="change positive" id="k22-change">↑ +0.41%</div>
                     <div class="card-footer">
                         <small>شائع في المجوهرات</small>
                     </div>
@@ -96,8 +113,8 @@
                         <i class="fas fa-ring"></i>
                         <h3>ذهب 21 قيراط</h3>
                     </div>
-                    <div class="price" id="k21-price">--</div>
-                    <div class="change" id="k21-change">--</div>
+                    <div class="price" id="k21-price">ج.م 5,708.13</div>
+                    <div class="change positive" id="k21-change">↑ +0.40%</div>
                     <div class="card-footer">
                         <small>الأكثر استخداماً</small>
                     </div>
@@ -109,8 +126,8 @@
                         <i class="fas fa-star"></i>
                         <h3>ذهب 18 قيراط</h3>
                     </div>
-                    <div class="price" id="k18-price">--</div>
-                    <div class="change" id="k18-change">--</div>
+                    <div class="price" id="k18-price">ج.م 4,892.68</div>
+                    <div class="change positive" id="k18-change">↑ +0.38%</div>
                     <div class="card-footer">
                         <small>للذهب الأبيض</small>
                     </div>
@@ -122,8 +139,8 @@
                         <i class="fas fa-weight-hanging"></i>
                         <h3>أونصة الذهب</h3>
                     </div>
-                    <div class="price" id="ounce-price">--</div>
-                    <div class="change" id="ounce-change">--</div>
+                    <div class="price" id="ounce-price">ج.م 202,883.12</div>
+                    <div class="change positive" id="ounce-change">↑ +1.30%</div>
                     <div class="card-footer">
                         <small>السعر العالمي</small>
                     </div>
@@ -135,12 +152,17 @@
                         <i class="fas fa-weight"></i>
                         <h3>جرام الذهب</h3>
                     </div>
-                    <div class="price" id="gram-price">--</div>
-                    <div class="change" id="gram-change">--</div>
+                    <div class="price" id="gram-price">ج.م 6,523.57</div>
+                    <div class="change positive" id="gram-change">↑ +0.42%</div>
                     <div class="card-footer">
                         <small>سعر الجرام 24</small>
                     </div>
                 </div>
+            </div>
+
+            <!-- إعلان Monetag آخر -->
+            <div class="ad-container bottom-ad">
+                <div id="monetag-3"></div>
             </div>
 
             <div class="tools-section">
@@ -162,7 +184,25 @@
                             </select>
                         </div>
                         <button id="calculate-btn">احسب السعر</button>
-                        <div class="result" id="calc-result">--</div>
+                        <div class="result" id="calc-result">ج.م 5,708.13</div>
+                    </div>
+                </div>
+
+                <div class="market-info">
+                    <h2><i class="fas fa-chart-line"></i> معلومات السوق</h2>
+                    <div class="info-content">
+                        <div class="info-item">
+                            <span class="info-label">سعر الأونصة العالمية:</span>
+                            <span class="info-value">$2,150.75</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">سعر الجرام الدولي:</span>
+                            <span class="info-value">$69.15</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">حالة التحديث:</span>
+                            <span class="info-value" id="update-status">مستعد</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -179,7 +219,7 @@
 
     <div class="loading" id="loading">
         <div class="spinner"></div>
-        <p>جاري جلب أحدث الأسعار...</p>
+        <p>جاري تحديث الأسعار...</p>
     </div>
 
     <script src="script.js"></script>
