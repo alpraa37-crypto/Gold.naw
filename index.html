@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بترول - أسعار البنزين في مصر</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         :root {
             --primary: #1a5276;
@@ -94,6 +95,45 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 1rem;
+        }
+        
+        .ad-banner {
+            width: 100%;
+            margin: 1rem 0;
+            text-align: center;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+        }
+        
+        .ad-banner.horizontal {
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .ad-banner.vertical {
+            width: 300px;
+            height: 250px;
+            margin: 1rem auto;
+        }
+        
+        .ad-banner.square {
+            width: 300px;
+            height: 250px;
+            margin: 1rem auto;
+        }
+        
+        .ad-placeholder {
+            background: linear-gradient(45deg, #e9ecef, #dee2e6);
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            font-weight: bold;
         }
         
         .hero {
@@ -288,40 +328,19 @@
             display: none;
         }
         
-        .map-container {
+        #map {
             height: 400px;
-            background-color: #e9ecef;
             border-radius: 10px;
             margin-bottom: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #6c757d;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            z-index: 1;
         }
         
-        .map-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+        .map-controls {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-            text-align: center;
-            padding: 1rem;
-        }
-        
-        .map-placeholder {
-            font-size: 5rem;
+            gap: 10px;
             margin-bottom: 1rem;
-            opacity: 0.7;
+            flex-wrap: wrap;
         }
         
         .tips-list {
@@ -478,6 +497,33 @@
             color: var(--primary);
         }
         
+        .content-with-ads {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .main-content {
+            grid-column: 1;
+        }
+        
+        .sidebar-ads {
+            grid-column: 2;
+        }
+        
+        @media (max-width: 1024px) {
+            .content-with-ads {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar-ads {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+        }
+        
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: column;
@@ -512,6 +558,32 @@
             .notification-form {
                 flex-direction: column;
             }
+            
+            .sidebar-ads {
+                grid-template-columns: 1fr;
+            }
+            
+            .ad-banner.horizontal {
+                height: 90px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 2rem 1rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .fuel-price {
+                font-size: 1.5rem;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
@@ -539,6 +611,23 @@
     </header>
     
     <div class="container">
+        <!-- إعلان البانر العلوي -->
+        <div class="ad-banner horizontal">
+            <div class="ad-placeholder">
+                إعلان 728x90
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '9a7857a3d4ae7e904f1c6fa07d7d6833',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/9a7857a3d4ae7e904f1c6fa07d7d6833/invoke.js"></script>
+            </div>
+        </div>
+        
         <section class="hero" id="home">
             <h2>أسعار البنزين في مصر</h2>
             <p>تابع أحدث أسعار الوقود في مصر لحظة بلحظة مع تحديثات فورية وخدمات إضافية لتوفير النفقات</p>
@@ -562,52 +651,73 @@
             </div>
         </section>
         
-        <section class="fuel-prices" id="prices">
-            <h2 class="section-title"><i class="fas fa-gas-pump"></i> أسعار الوقود الحالية</h2>
-            <p style="margin-bottom: 1.5rem; color: #6c757d;">آخر تحديث: <span id="update-date">25 أكتوبر 2025 - 10:26 مساءً</span></p>
-            <div class="fuel-cards" id="fuel-cards">
-                <!-- سيتم ملء هذه المنطقة بالبيانات -->
+        <div class="content-with-ads">
+            <div class="main-content">
+                <section class="fuel-prices" id="prices">
+                    <h2 class="section-title"><i class="fas fa-gas-pump"></i> أسعار الوقود الحالية</h2>
+                    <p style="margin-bottom: 1.5rem; color: #6c757d;">آخر تحديث: <span id="update-date">25 أكتوبر 2025 - 10:26 مساءً</span></p>
+                    <div class="fuel-cards" id="fuel-cards">
+                        <!-- سيتم ملء هذه المنطقة بالبيانات -->
+                    </div>
+                </section>
+                
+                <section class="calculator" id="calculator">
+                    <h2 class="section-title"><i class="fas fa-calculator"></i> حاسبة تكلفة الوقود</h2>
+                    <div class="form-group">
+                        <label for="trip-distance">مسافة الرحلة (كم)</label>
+                        <input type="number" id="trip-distance" placeholder="أدخل المسافة بالكيلومترات">
+                    </div>
+                    <div class="form-group">
+                        <label for="fuel-type">نوع الوقود</label>
+                        <select id="fuel-type">
+                            <option value="15.75">بنزين 80</option>
+                            <option value="17.25">بنزين 92</option>
+                            <option value="19.00">بنزين 95</option>
+                            <option value="17.50">سولار</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fuel-consumption">استهلاك السيارة (لتر/100 كم)</label>
+                        <input type="number" id="fuel-consumption" placeholder="مثال: 8" value="8">
+                    </div>
+                    <button onclick="calculateFuelCost()"><i class="fas fa-calculator"></i> احسب التكلفة</button>
+                    <div class="result" id="calculation-result"></div>
+                </section>
+                
+                <section class="map-section" id="map-section">
+                    <h2 class="section-title"><i class="fas fa-map-marked-alt"></i> خريطة محطات الوقود</h2>
+                    <div class="map-controls">
+                        <button id="locate-me"><i class="fas fa-location-arrow"></i> تحديد موقعي</button>
+                        <button id="reset-map"><i class="fas fa-sync-alt"></i> إعادة تعيين</button>
+                    </div>
+                    <div id="map"></div>
+                </section>
             </div>
-        </section>
-        
-        <section class="calculator" id="calculator">
-            <h2 class="section-title"><i class="fas fa-calculator"></i> حاسبة تكلفة الوقود</h2>
-            <div class="form-group">
-                <label for="trip-distance">مسافة الرحلة (كم)</label>
-                <input type="number" id="trip-distance" placeholder="أدخل المسافة بالكيلومترات">
-            </div>
-            <div class="form-group">
-                <label for="fuel-type">نوع الوقود</label>
-                <select id="fuel-type">
-                    <option value="15.75">بنزين 80</option>
-                    <option value="17.25">بنزين 92</option>
-                    <option value="19.00">بنزين 95</option>
-                    <option value="17.50">سولار</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="fuel-consumption">استهلاك السيارة (لتر/100 كم)</label>
-                <input type="number" id="fuel-consumption" placeholder="مثال: 8" value="8">
-            </div>
-            <button onclick="calculateFuelCost()"><i class="fas fa-calculator"></i> احسب التكلفة</button>
-            <div class="result" id="calculation-result"></div>
-        </section>
-        
-        <section class="map-section" id="map">
-            <h2 class="section-title"><i class="fas fa-map-marked-alt"></i> خريطة محطات الوقود</h2>
-            <div class="map-container">
-                <div class="map-placeholder">
-                    <i class="fas fa-map"></i>
+            
+            <div class="sidebar-ads">
+                <!-- إعلان 1 -->
+                <div class="ad-banner vertical">
+                    <div class="ad-placeholder">
+                        إعلان 300x250
+                        <script type='text/javascript' src='//pl27922477.effectivegatecpm.com/bf/64/cd/bf64cdf7dec16bd53e6ea518c5795a28.js'></script>
+                    </div>
                 </div>
-                <div class="map-overlay">
-                    <div>
-                        <h3>خريطة محطات الوقود</h3>
-                        <p>هذه الخريطة التفاعلية تظهر مواقع محطات الوقود القريبة منك</p>
-                        <button style="margin-top: 1rem;"><i class="fas fa-location-arrow"></i> تحديد موقعي</button>
+                
+                <!-- إعلان 2 -->
+                <div class="ad-banner square">
+                    <div class="ad-placeholder">
+                        إعلان 300x250
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+        
+        <!-- إعلان إضافي -->
+        <div class="ad-banner horizontal">
+            <div class="ad-placeholder">
+                إعلان 728x90
+            </div>
+        </div>
         
         <section class="features">
             <div class="feature-card">
@@ -675,7 +785,7 @@
                     <li><a href="#home">الرئيسية</a></li>
                     <li><a href="#prices">أسعار الوقود</a></li>
                     <li><a href="#calculator">الحاسبة</a></li>
-                    <li><a href="#map">خريطة المحطات</a></li>
+                    <li><a href="#map-section">خريطة المحطات</a></li>
                 </ul>
             </div>
             
@@ -704,6 +814,7 @@
         </div>
     </footer>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         // بيانات أسعار الوقود الحقيقية بناءً على الصورة المرفقة
         const fuelPrices = [
@@ -764,9 +875,83 @@
             resultElement.style.display = 'block';
         }
         
+        // تهيئة الخريطة
+        let map;
+        let userMarker;
+        
+        function initMap() {
+            // إنشاء الخريطة مع عرض مصر
+            map = L.map('map').setView([26.8206, 30.8025], 6);
+            
+            // إضافة طبقة الخريطة الأساسية
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            
+            // إضافة بعض محطات الوقود الوهمية (في الواقع يمكن استبدالها ببيانات حقيقية)
+            const fuelStations = [
+                { name: "محطة الوقود 1", lat: 30.0444, lng: 31.2357, type: "بنزين 95" },
+                { name: "محطة الوقود 2", lat: 31.2001, lng: 29.9187, type: "بنزين 92" },
+                { name: "محطة الوقود 3", lat: 31.0411, lng: 31.3599, type: "سولار" },
+                { name: "محطة الوقود 4", lat: 29.9668, lng: 32.5498, type: "بنزين 80" },
+                { name: "محطة الوقود 5", lat: 31.5897, lng: 25.3897, type: "بنزين 95" }
+            ];
+            
+            // إضافة محطات الوقود إلى الخريطة
+            fuelStations.forEach(station => {
+                const marker = L.marker([station.lat, station.lng]).addTo(map);
+                marker.bindPopup(`
+                    <b>${station.name}</b><br>
+                    نوع الوقود: ${station.type}<br>
+                    <button onclick="showStationDetails('${station.name}')">عرض التفاصيل</button>
+                `);
+            });
+            
+            // زر تحديد الموقع
+            document.getElementById('locate-me').addEventListener('click', function() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        const userLat = position.coords.latitude;
+                        const userLng = position.coords.longitude;
+                        
+                        // إزالة العلامة القديمة إذا كانت موجودة
+                        if (userMarker) {
+                            map.removeLayer(userMarker);
+                        }
+                        
+                        // إضافة علامة للمستخدم
+                        userMarker = L.marker([userLat, userLng]).addTo(map);
+                        userMarker.bindPopup("<b>موقعك الحالي</b>").openPopup();
+                        
+                        // تكبير الخريطة إلى موقع المستخدم
+                        map.setView([userLat, userLng], 13);
+                    }, function(error) {
+                        alert('تعذر الحصول على موقعك: ' + error.message);
+                    });
+                } else {
+                    alert('المتصفح لا يدخدم خدمة تحديد الموقع');
+                }
+            });
+            
+            // زر إعادة تعيين الخريطة
+            document.getElementById('reset-map').addEventListener('click', function() {
+                map.setView([26.8206, 30.8025], 6);
+                if (userMarker) {
+                    map.removeLayer(userMarker);
+                    userMarker = null;
+                }
+            });
+        }
+        
+        // وظيفة مساعدة لعرض تفاصيل المحطة
+        function showStationDetails(stationName) {
+            alert(`تفاصيل ${stationName}\n\nهذه وظيفة تجريبية. في التطبيق الحقيقي، ستظهر هنا تفاصيل المحطة الحقيقية.`);
+        }
+        
         // تهيئة الصفحة عند التحميل
         document.addEventListener('DOMContentLoaded', function() {
             displayFuelPrices();
+            initMap();
             
             // إضافة تأثيرات تفاعلية للقوائم
             const navLinks = document.querySelectorAll('nav ul li a');
@@ -791,6 +976,23 @@
                             top: targetElement.offsetTop - 80,
                             behavior: 'smooth'
                         });
+                    }
+                });
+            });
+            
+            // إضافة القائمة المتنقلة للهواتف
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const nav = document.querySelector('nav');
+            
+            mobileMenu.addEventListener('click', function() {
+                nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+            });
+            
+            // إخفاء القائمة عند النقر على رابط
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        nav.style.display = 'none';
                     }
                 });
             });
